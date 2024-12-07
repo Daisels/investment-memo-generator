@@ -1,0 +1,21 @@
+# LLM Configuration
+llm:
+  provider: openai
+  model: gpt-4
+  temperature: 0.7
+  max_tokens: 2000
+
+# Vector Database Configuration
+vector_db:
+  provider: chroma
+  persistence_path: data/vectordb
+  collection_name: investment_docs
+
+# Template Configuration
+template:
+  path: templates/memo.txt
+  sections:
+    - executive_summary
+    - financial_analysis
+    - market_analysis
+    - recommendation

@@ -1,0 +1,19 @@
+INVESTMENT MEMORANDUM
+
+{date}
+
+EXECUTIVE SUMMARY
+================
+{executive_summary}
+
+FINANCIAL ANALYSIS
+=================
+{financial_analysis}
+
+MARKET ANALYSIS
+==============
+{market_analysis}
+
+RECOMMENDATION
+=============
+{recommendation}
