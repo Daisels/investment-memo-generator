@@ -1,49 +1,33 @@
-"""Configuration management for the Investment Memo Generator."""
-
-import os
 from pathlib import Path
-from typing import Dict, Any
-
+from typing import Dict, Any, Optional
 import yaml
 
 class Config:
-    """Handles configuration loading and management."""
+    """Configuration manager for the Investment Memo Generator."""
     
-    def __init__(self, config_path: str = None):
-        """Initialize configuration.
-        
-        Args:
-            config_path: Path to configuration file. If None, uses default.
-        """
-        self.config_path = config_path or self._get_default_config()
+    def __init__(self, config_path: Optional[Path] = None):
+        self.config_path = config_path or Path("config/default_config.yml")
         self.config: Dict[str, Any] = {}
         self.load_config()
     
-    def _get_default_config(self) -> str:
-        """Get path to default config file."""
-        root_dir = Path(__file__).parent.parent.parent
-        return str(root_dir / "config" / "default_config.yml")
-    
     def load_config(self) -> None:
-        """Load configuration from file."""
-        if not os.path.exists(self.config_path):
+        """Load configuration from YAML file."""
+        if not self.config_path.exists():
             raise FileNotFoundError(f"Config file not found: {self.config_path}")
-            
-        with open(self.config_path, "r") as f:
+        
+        with open(self.config_path) as f:
             self.config = yaml.safe_load(f)
     
     def get(self, key: str, default: Any = None) -> Any:
-        """Get configuration value.
-        
-        Args:
-            key: Configuration key to retrieve
-            default: Default value if key not found
-            
-        Returns:
-            Configuration value
-        """
+        """Get configuration value by key."""
         return self.config.get(key, default)
-        
-    def __getitem__(self, key: str) -> Any:
-        """Get configuration value using dictionary syntax."""
-        return self.config[key]
+
+    @property
+    def llm_config(self) -> Dict[str, Any]:
+        """Get LLM configuration."""
+        return self.config.get("llm", {})
+    
+    @property
+    def template_config(self) -> Dict[str, Any]:
+        """Get template configuration."""
+        return self.config.get("template", {})
