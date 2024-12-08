@@ -1,0 +1,21 @@
+# LLM Configuration
+llm:
+  api_key: ${CLAUDE_API_KEY}  # Will be loaded from environment variable
+  model: "claude-3-sonnet-20240229"
+  temperature: 0.7
+  max_tokens: 4096
+
+# Vector Database Configuration
+vector_db:
+  provider: "chroma"
+  persist_directory: "data/vectordb"
+  collection_name: "investment_docs"
+
+# Document Processing Configuration
+processing:
+  chunk_size: 1000
+  chunk_overlap: 200
+  supported_languages: ["en", "nl"]
+  input_directory: "data/input"
+  output_directory: "data/output"
+  temp_directory: "data/temp"
